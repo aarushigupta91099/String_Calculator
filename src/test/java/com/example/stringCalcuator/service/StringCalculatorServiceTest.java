@@ -57,4 +57,16 @@ public class StringCalculatorServiceTest {
         calculator = new StringCalculatorService();
         assertEquals(2,calculator.add("2,1003"));
     }
+
+    @Test
+    public void whenCustomDelimiterWithMultipleCharacters_thenReturnSum() {
+        StringCalculatorService calculator = new StringCalculatorService();
+        assertEquals(6, calculator.add("//[***]\n1***2***3"));
+    }
+
+    @Test
+    public void whenCustomDelimiterWithMultipleDelimiters_thenReturnSum() {
+        StringCalculatorService calculator = new StringCalculatorService();
+        assertEquals(6, calculator.add("//[*][%]\n1*2%3"));
+    }
 }

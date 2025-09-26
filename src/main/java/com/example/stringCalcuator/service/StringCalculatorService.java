@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,12 +16,20 @@ public class StringCalculatorService {
         }
         //delimeter
         String delimeters = ",|\n";
+        String numberPart = numbers;
         if(numbers.startsWith("//")){
-            delimeters = numbers.substring(2,3);
-            numbers = numbers.substring(4);
+            int delimeterEndIndex = numbers.indexOf("\n");
+            String delimiterDeclaration = numbers.substring(2, delimeterEndIndex);
+
+            if (delimiterDeclaration.startsWith("[")) {
+                delimeters = extractMultiCharacterDelimiter(delimiterDeclaration);
+            } else {
+                delimeters = Pattern.quote(delimiterDeclaration);
+            }
+            numberPart = numbers.substring(delimeterEndIndex + 1);
         }
 
-        String[] num = numbers.split(delimeters);
+        String[] num = numberPart.split(delimeters);
         int numSum = 0;
         List<Integer> negativeNumbers = Arrays.stream(num)
                 .mapToInt(Integer::parseInt)
@@ -32,5 +41,12 @@ public class StringCalculatorService {
         }
         numSum = Arrays.stream(num).filter(nNum -> !nNum.isEmpty()).mapToInt(Integer::parseInt).filter(nNum -> nNum <= 1000).sum();
         return numSum;
+    }
+
+    private String extractMultiCharacterDelimiter(String delimiterDeclaration) {
+        return Arrays.stream(delimiterDeclaration.split("\\[|\\]"))
+                .filter(part -> !part.isEmpty())
+                .map(Pattern::quote)
+                .collect(Collectors.joining("|"));
     }
 }
