@@ -13,4 +13,10 @@ public class StringCalculatorServiceTest {
         calculator = new StringCalculatorService();
         assertEquals(0, calculator.add(""));
     }
+
+    @Test
+    public void handlingSingleInputString(){
+        calculator = new StringCalculatorService();
+        assertEquals(1,calculator.add("1"));
+    }
 }
