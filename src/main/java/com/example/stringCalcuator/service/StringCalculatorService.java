@@ -3,6 +3,8 @@ package com.example.stringCalcuator.service;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StringCalculatorService {
@@ -20,7 +22,15 @@ public class StringCalculatorService {
 
         String[] num = numbers.split(delimeters);
         int numSum = 0;
-        numSum = Arrays.stream(num).mapToInt(Integer::parseInt).sum();
+        List<Integer> negativeNumbers = Arrays.stream(num)
+                .mapToInt(Integer::parseInt)
+                .filter(negNum -> negNum < 0)
+                .boxed()
+                .toList();
+        if(!negativeNumbers.isEmpty()){
+            throw new IllegalArgumentException("negative numbers not allowed "+negativeNumbers);
+        }
+        numSum = Arrays.stream(num).filter(nNum -> !nNum.isEmpty()).mapToInt(Integer::parseInt).filter(nNum -> nNum <= 1000).sum();
         return numSum;
     }
 }

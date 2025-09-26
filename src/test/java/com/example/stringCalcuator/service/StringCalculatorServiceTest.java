@@ -49,6 +49,12 @@ public class StringCalculatorServiceTest {
     public void handlingNegativeNumberInputString(){
         calculator = new StringCalculatorService();
         Exception exception = assertThrows(IllegalArgumentException.class, () -> calculator.add("-1,2"));
-        assertEquals("negative numbers not allowed -1",exception.getMessage());
+        assertEquals("negative numbers not allowed [-1]",exception.getMessage());
+    }
+
+    @Test
+    public void handlingGreaterNumberInputString(){
+        calculator = new StringCalculatorService();
+        assertEquals(2,calculator.add("2,1003"));
     }
 }
