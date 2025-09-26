@@ -37,4 +37,10 @@ public class StringCalculatorServiceTest {
         calculator = new StringCalculatorService();
         assertEquals(6,calculator.add("1,2\n3"));
     }
+
+    @Test
+    public void handlingDelimeterInInputString(){
+        calculator = new StringCalculatorService();
+        assertEquals(6,calculator.add("//;\n1;2;3"));
+    }
 }
