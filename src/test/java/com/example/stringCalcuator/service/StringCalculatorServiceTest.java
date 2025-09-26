@@ -25,4 +25,10 @@ public class StringCalculatorServiceTest {
         calculator = new StringCalculatorService();
         assertEquals(3,calculator.add("1,2"));
     }
+
+    @Test
+    public void handlingMultipleInputString(){
+        calculator = new StringCalculatorService();
+        assertEquals(7,calculator.add("1,2,4"));
+    }
 }
