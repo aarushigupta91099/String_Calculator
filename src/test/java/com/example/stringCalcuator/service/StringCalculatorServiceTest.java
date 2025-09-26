@@ -19,4 +19,10 @@ public class StringCalculatorServiceTest {
         calculator = new StringCalculatorService();
         assertEquals(1,calculator.add("1"));
     }
+
+    @Test
+    public void handlingDoubleInputString(){
+        calculator = new StringCalculatorService();
+        assertEquals(3,calculator.add("1,2"));
+    }
 }
