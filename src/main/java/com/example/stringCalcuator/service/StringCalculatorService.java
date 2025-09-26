@@ -11,7 +11,7 @@ public class StringCalculatorService {
         if(numbers.isEmpty()){
             return 0;
         }
-        String[] num = numbers.split(",");
+        String[] num = numbers.split(",|\n");
         int numSum = 0;
         numSum = Arrays.stream(num).mapToInt(Integer::parseInt).sum();
         return numSum;

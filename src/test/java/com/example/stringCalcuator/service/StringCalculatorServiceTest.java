@@ -31,4 +31,10 @@ public class StringCalculatorServiceTest {
         calculator = new StringCalculatorService();
         assertEquals(7,calculator.add("1,2,4"));
     }
+
+    @Test
+    public void handlingNewLineInputString(){
+        calculator = new StringCalculatorService();
+        assertEquals(6,calculator.add("1,2\n3"));
+    }
 }
